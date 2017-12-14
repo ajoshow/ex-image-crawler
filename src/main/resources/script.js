@@ -1,0 +1,1 @@
+return (function(){function e(e,t){if(e.currentStyle)var r=e.currentStyle[t];else if(window.getComputedStyle)var r=document.defaultView.getComputedStyle(e,null).getPropertyValue(t);return r}for(var t,r=document.getElementsByTagName("*"),u=[],n=0;r[n];n++)t=e(r[n],"background-image"),t&&"none"!==t&&t.startsWith("url")&&(t=t.replace(/url\(|"|\)/gi,""),u.push(t));return u})();
