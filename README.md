@@ -1,2 +1,2 @@
 # ex-image-crawler
-Java + PhantomJS examples.
+Java + Selenium examples.
