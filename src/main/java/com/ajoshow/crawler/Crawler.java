@@ -40,5 +40,5 @@ public abstract class Crawler {
 
 
 
-    public abstract List<String> read(String siteUrl);
+    public abstract List<String> get(String siteUrl);
 }

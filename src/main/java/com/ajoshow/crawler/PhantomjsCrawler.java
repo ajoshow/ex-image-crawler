@@ -1,28 +1,25 @@
 package com.ajoshow.crawler;
 
-import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriverService;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author Andy on 2017/12/15.
+ * @deprecated Phantomjs driver is no longer support, use {@link ChromeCrawler} instead.
  */
-public class PhantomjsCrawler extends Crawler{
 
-    public static final String PHANTOMJS_PATH = "phantomjs.exe";
-    public static final String SCRIPT_PATH = "script.js";
+public class PhantomjsCrawler extends Crawler {
+
+    private static final String PHANTOMJS_PATH = "phantomjs.exe";
 
     private DesiredCapabilities caps;
-    private String scriptContent;
 
     public PhantomjsCrawler() throws IOException {
         String phantomjsPath = getClassLoader().getResource(PHANTOMJS_PATH).getFile();
@@ -40,12 +37,11 @@ public class PhantomjsCrawler extends Crawler{
         );
 
 
-
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<String> read(String siteUrl) {
+    public List<String> get(String siteUrl) {
         PhantomJSDriver driver = null;
         List<String> urls = new ArrayList<>();
         try {
@@ -58,7 +54,7 @@ public class PhantomjsCrawler extends Crawler{
             WebDriverWait wait = new WebDriverWait(driver, getWaitInSecond());
             wait.withTimeout(Duration.ofSeconds(getWaitInSecond()));
             urls = (ArrayList<String>) driver.executeScript(getScriptContent());
-            for(String url : urls){
+            for (String url : urls) {
                 System.out.println(url);
             }
         } finally {

@@ -1,13 +1,10 @@
 package com.ajoshow.crawler;
 
-import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,15 +14,14 @@ import java.util.List;
  */
 public class ChromeCrawler extends Crawler{
 
-    public static final String DRIVER_PATH = "chromedriver.exe";
+    private static final String CHROME_PATH = "chromedriver.exe";
 
     private ChromeOptions opts;
-    private String scriptContent;
 
     public ChromeCrawler() throws IOException {
-        String driverPath = getClassLoader().getResource(DRIVER_PATH).getFile();
+        String driverPath = getClassLoader().getResource(CHROME_PATH).getFile();
 
-        System.out.println("DRIVER_PATH: " + DRIVER_PATH);
+        System.out.println("CHROME_PATH: " + CHROME_PATH);
         System.setProperty("webdriver.chrome.driver", driverPath);
 
         opts = new ChromeOptions();
@@ -35,7 +31,7 @@ public class ChromeCrawler extends Crawler{
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<String> read(String siteUrl) {
+    public List<String> get(String siteUrl) {
         ChromeDriver driver = null;
         List<String> urls = new ArrayList<>();
         try {
