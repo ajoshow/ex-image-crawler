@@ -8,7 +8,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Andy on 2017/12/15.
@@ -41,19 +43,16 @@ public class PhantomjsCrawler extends Crawler {
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<String> get(String siteUrl) {
+    public Set<String> get(String siteUrl) {
         PhantomJSDriver driver = null;
-        List<String> urls = new ArrayList<>();
+        Set<String> urls = new HashSet<>();
         try {
             driver = new PhantomJSDriver(caps);
             System.out.println("============================");
             System.out.println("Read from: " + siteUrl);
             driver.get(siteUrl);
             System.out.println("Site title: " + driver.getTitle());
-            // seems phantomjs has no effect from WebDriverWait
-            WebDriverWait wait = new WebDriverWait(driver, getWaitInSecond());
-            wait.withTimeout(Duration.ofSeconds(getWaitInSecond()));
-            urls = (ArrayList<String>) driver.executeScript(getScriptContent());
+            urls = new HashSet<>((ArrayList<String>) driver.executeScript(getScriptContent()));
             for (String url : urls) {
                 System.out.println(url);
             }
